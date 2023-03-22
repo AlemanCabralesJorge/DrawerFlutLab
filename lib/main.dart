@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
   static const String _title = 'Drawer en flutter';
   // This widget is the root of your application.
   @override
@@ -26,78 +26,99 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Text('Act 3 Drawer Alemán'),
-            backgroundColor: const Color(0xffc139ba)),
-        drawer: Drawer(
-          child: ListView(
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
-            children: [
-              const UserAccountsDrawerHeader(
-                // <-- SEE HERE
-                decoration: BoxDecoration(color: const Color(0xffc139ba)),
-                accountName: Text(
-                  "Alemán Cabrales Jorge 6I",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+      key: _key,
+      appBar: AppBar(
+          title: Text('Act 3 Drawer Alemán'),
+          backgroundColor: const Color(0xffc139ba)),
+      drawer: Drawer(
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: const Color(0xff764abc)),
+              accountName: Text(
+                "Alemán Cabrales Jorge",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
-                accountEmail: Text(
-                  "jorgealeman0505@gmail.com",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                currentAccountPicture: FlutterLogo(),
               ),
-              /*const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: const Color(0xffc139ba),
+              accountEmail: Text(
+                "jorgealeman0505@gmail.com",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
                 ),
-                child: Text('Encabezado del Drawer'),
-              ),*/
-              ListTile(
-                leading: Icon(
-                  Icons.home,
-                ),
-                title: const Text('Pagina 1'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
               ),
-              ListTile(
-                leading: Icon(
-                  Icons.train,
-                ),
-                title: const Text('Página 2'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
+              currentAccountPicture: FlutterLogo(),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.home,
               ),
-              ListTile(
-                leading: Icon(
-                  Icons.abc,
-                ),
-                title: const Text('Página 3'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
+              title: const Text('Page 1'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.train,
               ),
-            ],
-          ),
+              title: const Text('Page 2'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.abc_sharp,
+              ),
+              title: const Text('Page 3'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            AboutListTile(
+              // <-- SEE HERE
+              icon: Icon(
+                Icons.info,
+              ),
+              child: Text('About app'),
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'My Cool App',
+              applicationVersion: '1.0.25',
+              applicationLegalese: '© 2019 Company',
+              aboutBoxChildren: [
+                ///Content goes here...
+              ],
+            ),
+          ],
         ),
-        body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 50,
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                _key.currentState!.openDrawer(); //<-- SEE HERE
+              },
+              child: const Text(
+                'Elevated Button 1',
+                style: TextStyle(fontSize: 24),
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
